@@ -1,0 +1,82 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Student Attendance</title>
+</head>
+<body>
+    <h1>Student Attendance Details</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Subject</th>
+                <th>Average Attendance Rate (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                {% for subject in student.subjects %}
+                    <tr>
+                        <td>{{ student.name }}</td>
+                        <td>{{ subject.name }}</td>
+                        <td>{{ subject.average_attendance_rate }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Attendance</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student Attendance Rollcall</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                {% for subject in subjects %}
+                    <th>{{ subject.name }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.name }}</td>
+                    {% for subject in subjects %}
+                        <td>
+                            {% for subj in student.subjects %}
+                                {% if subj.name == subject.name %}
+                                    {{ subj.average_attendance_rate }}
+                                {% endif %}
+                            {% endfor %}
+                            {% if not student.subjects|slice:":1"|first %}
+                                0
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

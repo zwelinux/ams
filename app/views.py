@@ -58,6 +58,27 @@ class StudentSubjectAttendanceView(generics.ListAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
+# def student_attendance_view(request):
+#     students = Student.objects.all()
+#     serializer = StudentSerializer(students, many=True)
+#     context = {
+#         'students': serializer.data
+#     }
+#     return render(request, 'student_attendance.html', context)
+
+def student_attendance_view(request):
+    students = Student.objects.all()
+    subjects = Subject.objects.all()
+    
+    # Serialize students data
+    serializer = StudentSerializer(students, many=True)
+    
+    context = {
+        'students': serializer.data,
+        'subjects': subjects
+    }
+    return render(request, 'student_attendance.html', context)
+
 # views.py
 from django.shortcuts import render, redirect
 from .forms import AttendanceForm
