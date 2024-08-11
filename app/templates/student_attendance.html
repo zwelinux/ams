@@ -28,7 +28,7 @@
 </body>
 </html> -->
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Student Attendance</title>
@@ -78,5 +78,52 @@
             {% endfor %}
         </tbody>
     </table>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Student Attendance Rollcall</h1>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-800 text-white">
+                        <th class="px-6 py-3">Student Name</th>
+                        {% for subject in subjects %}
+                            <th class="px-6 py-3">{{ subject.name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    {% for student in students %}
+                        <tr class="border-t border-gray-200">
+                            <td class="px-6 py-4">{{ student.name }}</td>
+                            {% for subject in subjects %}
+                                <td class="px-6 py-4">
+                                    {% for subj in student.subjects %}
+                                        {% if subj.name == subject.name %}
+                                            {{ subj.average_attendance_rate }}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if not student.subjects|slice:":1"|first %}
+                                        0
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

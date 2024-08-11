@@ -83,15 +83,50 @@ def student_attendance_view(request):
 from django.shortcuts import render, redirect
 from .forms import AttendanceForm
 
+# def attendance_form(request):
+#     if request.method == 'POST':
+#         form = AttendanceForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('attendance_success')
+#     else:
+#         form = AttendanceForm()
+#     return render(request, 'attendance_form.html', {'form': form})
+
+from django.shortcuts import render, get_object_or_404
+from .models import Subject
+from .forms import AttendanceForm
+
 def attendance_form(request):
+    subject_id = request.GET.get('subject_id')
+    subject = get_object_or_404(Subject, id=subject_id)
+    
     if request.method == 'POST':
         form = AttendanceForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('attendance_success')
+            attendance = form.save(commit=False)
+            attendance.subject = subject
+            attendance.save()
+            return render(request, 'attendance_success.html')
     else:
         form = AttendanceForm()
-    return render(request, 'attendance_form.html', {'form': form})
+
+    return render(request, 'attendance_form.html', {'form': form, 'subject': subject})
+
+# def subject_qr_codes(request):
+#     subjects = Subject.objects.all()
+#     return render(request, 'subject_qr_codes.html', {'subjects': subjects})
+
+def subject_qr_codes(request):
+    subjects = Subject.objects.all()
+    qr_code_links = []
+    for subject in subjects:
+        qr_code_link = f"http://192.168.195.186:8000/media/qr_codes/subject_{subject.id}.png"
+        qr_code_links.append({
+            'name': subject.name,
+            'qr_code_link': qr_code_link
+        })
+    return render(request, 'subject_qr_codes.html', {'qr_code_links': qr_code_links})
 
 
 # views.py

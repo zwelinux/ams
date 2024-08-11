@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Success</title>
@@ -6,5 +6,23 @@
 <body>
     <h1>Attendance Recorded Successfully</h1>
     <a href="{% url 'attendance_form' %}">Submit another record</a>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+        <h1 class="text-2xl font-bold text-green-600 mb-4">Attendance Recorded Successfully</h1>
+        <a href="{% url 'attendance_form' %}" class="text-blue-500 hover:underline">Submit another record</a>
+    </div>
 </body>
 </html>

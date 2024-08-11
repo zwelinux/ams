@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject QR Codes</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Subject QR Codes</h1>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="px-4 py-2">Subject</th>
+                        <th class="px-4 py-2">QR Code Link</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    {% for item in qr_code_links %}
+                        <tr class="border-t border-gray-200">
+                            <td class="px-4 py-2">{{ item.name }}</td>
+                            <td class="px-4 py-2"><a href="{{ item.qr_code_link }}" target="_blank" class="text-blue-500 hover:underline">View QR Code</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Subject QR Codes</title>
+</head>
+<body>
+    <h1>Subject QR Codes</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>QR Code Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in qr_code_links %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td><a href="{{ item.qr_code_link }}" target="_blank">View QR Code</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html> -->
